@@ -9,6 +9,20 @@
         <!-- See SETUP.md "Publishing an update (Sparkle)" for how to add a release entry. -->
 
         <item>
+            <title>Version 1.0.2</title>
+            <pubDate>Fri, 03 Jul 2026 20:29:43 +0000</pubDate>
+            <sparkle:version>102</sparkle:version>
+            <sparkle:shortVersionString>1.0.2</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:releaseNotesLink>https://github.com/IHMS-IT/Account-Manager/releases/tag/v1.0.2</sparkle:releaseNotesLink>
+            <enclosure
+                url="https://github.com/IHMS-IT/Account-Manager/releases/download/v1.0.2/AccountManager-1.0.2.zip"
+                sparkle:edSignature="D9DMmIUDaAGiyFJB4n/SqnSP8nNau34BprDy7vay4XQfCH5/wMM8gl+SNM3ukYc48vDRb7kwIN95w26RcidGDQ=="
+                length="6150708"
+                type="application/octet-stream" />
+        </item>
+
+        <item>
             <title>Version 1.0.1</title>
             <pubDate>Fri, 03 Jul 2026 18:25:13 +0000</pubDate>
             <sparkle:version>101</sparkle:version>
