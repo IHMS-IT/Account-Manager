@@ -1,0 +1,18 @@
+{
+  "1.0.0": [
+    "Native macOS rewrite — replaces the cross-platform Avalonia / clearusers.py tool with a purpose-built Swift app",
+    "Account categories — sidebar organises accounts into Students, K-3 Shared, Staff, Office, Admin, and System/Protected for targeted bulk actions",
+    "Account details — each account shows its username, UID, and home folder size so you can identify accounts at a glance without opening a terminal",
+    "Protected accounts — system accounts and the current operator are locked from deletion with a visible reason tooltip",
+    "Flexible deletion modes — delete the account record only, the home folder only, or both; set a default in Settings and override per row as needed",
+    "Password reset — set a new password and clear lockouts caused by too many failed login attempts, for both local and remote Macs; works alongside deletions in the same batch run",
+    "Preview Mode — simulates the full run (deletions and password resets) and reports exactly what would happen without making any changes",
+    "No password prompts — operations run through a privileged XPC helper approved once at install; no admin credentials or sudo passwords are ever typed during normal use",
+    "Remote Mac management — connect to any macOS host over SSH and manage its accounts the same way as local ones",
+    "Logged-in detection — accounts with an active session on a remote Mac are locked and cannot be deleted while in use",
+    "PIN security — set a PIN to protect the app on shared student computers; lock the Remote Hosts tab and/or Settings behind it; stored in /Users/Shared/ so the lock applies to all user accounts on the Mac",
+    "Logging — every run is written to ~/Library/Logs/AccountManager/ for audit trails; logs are pruned automatically after 100 runs",
+    "Automatic updates — built-in updater checks for new releases in the background and prompts when one is available",
+    "Legacy deletion tool — the original dscl -delete and rm -rf method is available as an opt-in toggle in Settings for compatibility, but is no longer used by default"
+  ]
+}

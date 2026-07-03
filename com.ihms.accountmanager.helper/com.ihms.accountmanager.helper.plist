@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.ihms.accountmanager.helper</string>
+
+    <key>MachServices</key>
+    <dict>
+        <key>com.ihms.accountmanager.helper</key>
+        <true/>
+    </dict>
+
+    <!-- BundleProgram is relative to the app bundle root.
+         SMAppService uses this to locate and install the helper binary. -->
+    <key>BundleProgram</key>
+    <string>Contents/Library/LaunchDaemons/com.ihms.accountmanager.helper</string>
+</dict>
+</plist>

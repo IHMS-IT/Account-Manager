@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle">
+    <channel>
+        <title>Account Manager</title>
+        <link>https://github.com/IHMS-IT/Account-Manager</link>
+        <description>Account Manager update feed</description>
+        <language>en</language>
+
+        <!--
+            HOW TO ADD A RELEASE
+            ════════════════════
+            1. Archive and export a signed .app in Xcode (Product → Archive)
+            2. Zip it:
+                   ditto -c -k --keepParent "Account Manager.app" "AccountManager-1.0.0.zip"
+            3. Sign it with Sparkle (private key is in your Keychain):
+                   /path/to/sign_update AccountManager-1.0.0.zip
+               This prints the sparkle:edSignature and length values.
+            4. Upload the zip to GitHub Releases.
+            5. Copy the <item> block below, fill in the values, and commit this file.
+
+            The sign_update binary is at:
+            ~/Library/Developer/Xcode/DerivedData/Account_Manager-*/SourcePackages/artifacts/sparkle/Sparkle/bin/sign_update
+        -->
+
+        <item>
+            <title>Version 1.0.0</title>
+            <pubDate>Mon, 30 Jun 2026 00:00:00 +0000</pubDate>
+            <sparkle:version>100</sparkle:version>
+            <sparkle:shortVersionString>1.0.0</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:releaseNotesLink>https://github.com/IHMS-IT/Account-Manager/releases/tag/v1.0.0</sparkle:releaseNotesLink>
+            <enclosure
+                url="https://github.com/IHMS-IT/Account-Manager/releases/download/v1.0.0/AccountManager-1.0.0.zip"
+                sparkle:edSignature="REPLACE_WITH_SIGN_UPDATE_OUTPUT"
+                length="REPLACE_WITH_FILE_SIZE_IN_BYTES"
+                type="application/octet-stream" />
+        </item>
+
+    </channel>
+</rss>

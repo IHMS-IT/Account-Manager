@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- Privileged helpers must NOT be sandboxed -->
+    <key>com.apple.security.app-sandbox</key>
+    <false/>
+
+    <!-- Allow the helper to run as root via launchd -->
+    <key>com.apple.security.cs.allow-unsigned-executable-memory</key>
+    <false/>
+</dict>
+</plist>

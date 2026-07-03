@@ -1,0 +1,772 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7FB907E02FF2C48D00E31383 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = 7FB907DF2FF2C48D00E31383 /* Sparkle */; };
+		7FB907E22FF2C4A300E31383 /* ArgumentParser in Frameworks */ = {isa = PBXBuildFile; productRef = 7FB907E12FF2C4A300E31383 /* ArgumentParser */; };
+		7FB9089F2FF2E8FA00E31383 /* com.ihms.accountmanager.helper in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7FB908612FF2D31600E31383 /* com.ihms.accountmanager.helper */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7FE475C72FF2BFE7001A4594 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7FE475B12FF2BFE4001A4594 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7FE475B82FF2BFE4001A4594;
+			remoteInfo = "Account Manager";
+		};
+		7FE475D12FF2BFE7001A4594 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7FE475B12FF2BFE4001A4594 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7FE475B82FF2BFE4001A4594;
+			remoteInfo = "Account Manager";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		7FB9085F2FF2D31600E31383 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		7FB9089C2FF2E88900E31383 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/Library/LaunchDaemons;
+			dstSubfolderSpec = 1;
+			files = (
+				7FB9089F2FF2E8FA00E31383 /* com.ihms.accountmanager.helper in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		7FB908612FF2D31600E31383 /* com.ihms.accountmanager.helper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = com.ihms.accountmanager.helper; sourceTree = BUILT_PRODUCTS_DIR; };
+		7FE475B92FF2BFE4001A4594 /* Account Manager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Account Manager.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7FE475C62FF2BFE7001A4594 /* Account ManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Account ManagerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7FE475D02FF2BFE7001A4594 /* Account ManagerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Account ManagerUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		7FB9089B2FF2DB5400E31383 /* Exceptions for "Account Manager" folder in "com.ihms.accountmanager.helper" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Shared/HelperProtocol.swift,
+			);
+			target = 7FB908602FF2D31600E31383 /* com.ihms.accountmanager.helper */;
+		};
+		7FE475FA2FF2BFE4001A4595 /* Exceptions for "Account Manager" folder in "Account Manager" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				App/Info.plist,
+			);
+			target = 7FE475B82FF2BFE4001A4594 /* Account Manager */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		7FB9089E2FF2E8D300E31383 /* Exceptions for "com.ihms.accountmanager.helper" folder in "Copy Files" phase from "Account Manager" target */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = 7FB9089C2FF2E88900E31383 /* CopyFiles */;
+			membershipExceptions = (
+				com.ihms.accountmanager.helper.plist,
+			);
+		};
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		7FB908622FF2D31600E31383 /* com.ihms.accountmanager.helper */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				7FB9089E2FF2E8D300E31383 /* Exceptions for "com.ihms.accountmanager.helper" folder in "Copy Files" phase from "Account Manager" target */,
+			);
+			path = com.ihms.accountmanager.helper;
+			sourceTree = "<group>";
+		};
+		7FE475BB2FF2BFE4001A4594 /* Account Manager */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				7FE475FA2FF2BFE4001A4595 /* Exceptions for "Account Manager" folder in "Account Manager" target */,
+				7FB9089B2FF2DB5400E31383 /* Exceptions for "Account Manager" folder in "com.ihms.accountmanager.helper" target */,
+			);
+			path = "Account Manager";
+			sourceTree = "<group>";
+		};
+		7FE475C92FF2BFE7001A4594 /* Account ManagerTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Account ManagerTests";
+			sourceTree = "<group>";
+		};
+		7FE475D32FF2BFE7001A4594 /* Account ManagerUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Account ManagerUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7FB9085E2FF2D31600E31383 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7FE475B62FF2BFE4001A4594 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7FB907E22FF2C4A300E31383 /* ArgumentParser in Frameworks */,
+				7FB907E02FF2C48D00E31383 /* Sparkle in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7FE475C32FF2BFE7001A4594 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7FE475CD2FF2BFE7001A4594 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7FB907DE2FF2C48D00E31383 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7FE475B02FF2BFE4001A4594 = {
+			isa = PBXGroup;
+			children = (
+				7FE475BB2FF2BFE4001A4594 /* Account Manager */,
+				7FE475C92FF2BFE7001A4594 /* Account ManagerTests */,
+				7FE475D32FF2BFE7001A4594 /* Account ManagerUITests */,
+				7FB908622FF2D31600E31383 /* com.ihms.accountmanager.helper */,
+				7FB907DE2FF2C48D00E31383 /* Frameworks */,
+				7FE475BA2FF2BFE4001A4594 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		7FE475BA2FF2BFE4001A4594 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7FE475B92FF2BFE4001A4594 /* Account Manager.app */,
+				7FE475C62FF2BFE7001A4594 /* Account ManagerTests.xctest */,
+				7FE475D02FF2BFE7001A4594 /* Account ManagerUITests.xctest */,
+				7FB908612FF2D31600E31383 /* com.ihms.accountmanager.helper */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7FB908602FF2D31600E31383 /* com.ihms.accountmanager.helper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7FB908652FF2D31600E31383 /* Build configuration list for PBXNativeTarget "com.ihms.accountmanager.helper" */;
+			buildPhases = (
+				7FB9085D2FF2D31600E31383 /* Sources */,
+				7FB9085E2FF2D31600E31383 /* Frameworks */,
+				7FB9085F2FF2D31600E31383 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				7FB908622FF2D31600E31383 /* com.ihms.accountmanager.helper */,
+			);
+			name = com.ihms.accountmanager.helper;
+			packageProductDependencies = (
+			);
+			productName = com.ihms.accountmanager.helper;
+			productReference = 7FB908612FF2D31600E31383 /* com.ihms.accountmanager.helper */;
+			productType = "com.apple.product-type.tool";
+		};
+		7FE475B82FF2BFE4001A4594 /* Account Manager */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7FE475DA2FF2BFE7001A4594 /* Build configuration list for PBXNativeTarget "Account Manager" */;
+			buildPhases = (
+				7FE475B52FF2BFE4001A4594 /* Sources */,
+				7FE475B62FF2BFE4001A4594 /* Frameworks */,
+				7FE475B72FF2BFE4001A4594 /* Resources */,
+				7FB9089C2FF2E88900E31383 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				7FE475BB2FF2BFE4001A4594 /* Account Manager */,
+			);
+			name = "Account Manager";
+			packageProductDependencies = (
+				7FB907DF2FF2C48D00E31383 /* Sparkle */,
+				7FB907E12FF2C4A300E31383 /* ArgumentParser */,
+			);
+			productName = "Account Manager";
+			productReference = 7FE475B92FF2BFE4001A4594 /* Account Manager.app */;
+			productType = "com.apple.product-type.application";
+		};
+		7FE475C52FF2BFE7001A4594 /* Account ManagerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7FE475DD2FF2BFE7001A4594 /* Build configuration list for PBXNativeTarget "Account ManagerTests" */;
+			buildPhases = (
+				7FE475C22FF2BFE7001A4594 /* Sources */,
+				7FE475C32FF2BFE7001A4594 /* Frameworks */,
+				7FE475C42FF2BFE7001A4594 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7FE475C82FF2BFE7001A4594 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				7FE475C92FF2BFE7001A4594 /* Account ManagerTests */,
+			);
+			name = "Account ManagerTests";
+			packageProductDependencies = (
+			);
+			productName = "Account ManagerTests";
+			productReference = 7FE475C62FF2BFE7001A4594 /* Account ManagerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		7FE475CF2FF2BFE7001A4594 /* Account ManagerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7FE475E02FF2BFE7001A4594 /* Build configuration list for PBXNativeTarget "Account ManagerUITests" */;
+			buildPhases = (
+				7FE475CC2FF2BFE7001A4594 /* Sources */,
+				7FE475CD2FF2BFE7001A4594 /* Frameworks */,
+				7FE475CE2FF2BFE7001A4594 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7FE475D22FF2BFE7001A4594 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				7FE475D32FF2BFE7001A4594 /* Account ManagerUITests */,
+			);
+			name = "Account ManagerUITests";
+			packageProductDependencies = (
+			);
+			productName = "Account ManagerUITests";
+			productReference = 7FE475D02FF2BFE7001A4594 /* Account ManagerUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7FE475B12FF2BFE4001A4594 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2660;
+				LastUpgradeCheck = 2660;
+				TargetAttributes = {
+					7FB908602FF2D31600E31383 = {
+						CreatedOnToolsVersion = 26.6;
+					};
+					7FE475B82FF2BFE4001A4594 = {
+						CreatedOnToolsVersion = 26.6;
+					};
+					7FE475C52FF2BFE7001A4594 = {
+						CreatedOnToolsVersion = 26.6;
+						TestTargetID = 7FE475B82FF2BFE4001A4594;
+					};
+					7FE475CF2FF2BFE7001A4594 = {
+						CreatedOnToolsVersion = 26.6;
+						TestTargetID = 7FE475B82FF2BFE4001A4594;
+					};
+				};
+			};
+			buildConfigurationList = 7FE475B42FF2BFE4001A4594 /* Build configuration list for PBXProject "Account Manager" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 7FE475B02FF2BFE4001A4594;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				7FB907DC2FF2C41900E31383 /* XCRemoteSwiftPackageReference "Sparkle" */,
+				7FB907DD2FF2C45500E31383 /* XCRemoteSwiftPackageReference "swift-argument-parser" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 7FE475BA2FF2BFE4001A4594 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7FE475B82FF2BFE4001A4594 /* Account Manager */,
+				7FE475C52FF2BFE7001A4594 /* Account ManagerTests */,
+				7FE475CF2FF2BFE7001A4594 /* Account ManagerUITests */,
+				7FB908602FF2D31600E31383 /* com.ihms.accountmanager.helper */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7FE475B72FF2BFE4001A4594 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7FE475C42FF2BFE7001A4594 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7FE475CE2FF2BFE7001A4594 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7FB9085D2FF2D31600E31383 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7FE475B52FF2BFE4001A4594 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7FE475C22FF2BFE7001A4594 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7FE475CC2FF2BFE7001A4594 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7FE475C82FF2BFE7001A4594 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7FE475B82FF2BFE4001A4594 /* Account Manager */;
+			targetProxy = 7FE475C72FF2BFE7001A4594 /* PBXContainerItemProxy */;
+		};
+		7FE475D22FF2BFE7001A4594 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7FE475B82FF2BFE4001A4594 /* Account Manager */;
+			targetProxy = 7FE475D12FF2BFE7001A4594 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		7FB908662FF2D31600E31383 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = com.ihms.accountmanager.helper/com.ihms.accountmanager.helper.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
+				CURRENT_PROJECT_VERSION = 100;
+				DEVELOPMENT_TEAM = 99NFK23KMA;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ihms.accountmanager.helper;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		7FB908672FF2D31600E31383 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = com.ihms.accountmanager.helper/com.ihms.accountmanager.helper.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
+				CURRENT_PROJECT_VERSION = 100;
+				DEVELOPMENT_TEAM = 99NFK23KMA;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ihms.accountmanager.helper;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		7FE475D82FF2BFE7001A4594 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		7FE475D92FF2BFE7001A4594 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		7FE475DB2FF2BFE7001A4594 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 100;
+				DEVELOPMENT_TEAM = 99NFK23KMA;
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Account Manager/App/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ihms.accountmanager;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		7FE475DC2FF2BFE7001A4594 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 100;
+				DEVELOPMENT_TEAM = 99NFK23KMA;
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Account Manager/App/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ihms.accountmanager;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		7FE475DE2FF2BFE7001A4594 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 100;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.5;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ihms.accountmanager.Account-ManagerTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Account Manager.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Account Manager";
+			};
+			name = Debug;
+		};
+		7FE475DF2FF2BFE7001A4594 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 100;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.5;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ihms.accountmanager.Account-ManagerTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Account Manager.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Account Manager";
+			};
+			name = Release;
+		};
+		7FE475E12FF2BFE7001A4594 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 100;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ihms.accountmanager.Account-ManagerUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = "Account Manager";
+			};
+			name = Debug;
+		};
+		7FE475E22FF2BFE7001A4594 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 100;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ihms.accountmanager.Account-ManagerUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = "Account Manager";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7FB908652FF2D31600E31383 /* Build configuration list for PBXNativeTarget "com.ihms.accountmanager.helper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7FB908662FF2D31600E31383 /* Debug */,
+				7FB908672FF2D31600E31383 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7FE475B42FF2BFE4001A4594 /* Build configuration list for PBXProject "Account Manager" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7FE475D82FF2BFE7001A4594 /* Debug */,
+				7FE475D92FF2BFE7001A4594 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7FE475DA2FF2BFE7001A4594 /* Build configuration list for PBXNativeTarget "Account Manager" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7FE475DB2FF2BFE7001A4594 /* Debug */,
+				7FE475DC2FF2BFE7001A4594 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7FE475DD2FF2BFE7001A4594 /* Build configuration list for PBXNativeTarget "Account ManagerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7FE475DE2FF2BFE7001A4594 /* Debug */,
+				7FE475DF2FF2BFE7001A4594 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7FE475E02FF2BFE7001A4594 /* Build configuration list for PBXNativeTarget "Account ManagerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7FE475E12FF2BFE7001A4594 /* Debug */,
+				7FE475E22FF2BFE7001A4594 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		7FB907DC2FF2C41900E31383 /* XCRemoteSwiftPackageReference "Sparkle" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparkle-project/Sparkle";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.9.3;
+			};
+		};
+		7FB907DD2FF2C45500E31383 /* XCRemoteSwiftPackageReference "swift-argument-parser" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-argument-parser.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.8.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7FB907DF2FF2C48D00E31383 /* Sparkle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7FB907DC2FF2C41900E31383 /* XCRemoteSwiftPackageReference "Sparkle" */;
+			productName = Sparkle;
+		};
+		7FB907E12FF2C4A300E31383 /* ArgumentParser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7FB907DD2FF2C45500E31383 /* XCRemoteSwiftPackageReference "swift-argument-parser" */;
+			productName = ArgumentParser;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 7FE475B12FF2BFE4001A4594 /* Project object */;
+}
