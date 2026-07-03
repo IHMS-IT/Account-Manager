@@ -4,6 +4,7 @@
 //
 
 import SwiftUI
+import UniformTypeIdentifiers
 
 // MARK: - Notification names
 
@@ -43,10 +44,21 @@ struct ContentView: View {
     @State private var showHelperRequired = false
     @State private var showLaunchLock     = false
     @State private var editingHost: RemoteHost? = nil
-    // Offset from 0 (closed) to -hostRowActionWidth (fully open) per host row
+    // Offset from 0 (closed) to -hostRowActionWidth (edit/delete revealed on the
+    // right) or +hostLeftActionWidth (reorder handle revealed on the left).
     @State private var hostRevealOffsets: [UUID: CGFloat] = [:]
     @State private var dragBaseOffsets:   [UUID: CGFloat] = [:]
     private let hostRowActionWidth: CGFloat = 72   // 2×30pt circles + 8pt gap + 2pt trailing pad = 70, +2 breathing room
+    private let hostLeftActionWidth: CGFloat = 44  // 1×30pt circle + padding
+    // Drag-to-reorder state for the remote host list.
+    @State private var draggedHostID: UUID?
+    // When on, every row's reorder handle is shown at once (toggled via the
+    // sidebar "Reorder"/"Done" button) instead of needing a per-row swipe.
+    @State private var isReorderMode = false
+    // Locks an in-progress swipe/drag to whichever side it started moving
+    // toward, so a single continuous gesture can't glide past centre into
+    // the opposite side's reveal.
+    @State private var dragLockDirection: [UUID: Int] = [:]   // 1 = left (reorder), -1 = right (edit/delete)
     @State private var isVersionHovering  = false
     @State private var isSettingsHovering = false
     @State private var isDeleting         = false
@@ -245,6 +257,15 @@ struct ContentView: View {
                         .padding(.bottom, 2)
                 }
 
+                // Pinned Add Host / Reorder toolbar (remote host list only,
+                // not while connected) — stays fixed while the list scrolls.
+                if sidebarTab == .remote, remoteStore == nil {
+                    remoteListToolbar
+                        .padding(.horizontal, 12)
+                        .padding(.top, 8)
+                        .padding(.bottom, 6)
+                }
+
                 // Scrollable sidebar body
                 ScrollView(.vertical, showsIndicators: false) {
                     if sidebarTab == .local {
@@ -253,6 +274,21 @@ struct ContentView: View {
                         remoteSidebarBody
                     }
                 }
+                // Soft fade at the top and bottom edges, matching the release
+                // notes box — the extra vertical padding inside each list
+                // keeps the fade from dimming the very first row.
+                .mask(
+                    LinearGradient(
+                        stops: [
+                            .init(color: .clear, location: 0.0),
+                            .init(color: .black, location: 0.035),
+                            .init(color: .black, location: 0.965),
+                            .init(color: .clear, location: 1.0)
+                        ],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                )
             }
             .disabled(isDeleting)
 
@@ -477,39 +513,76 @@ struct ContentView: View {
         .disabled(isDeleting)
     }
 
-    // MARK: - Remote host list
+    // MARK: - Remote host list toolbar (pinned above the scrollable list)
 
-    private var remoteHostListView: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            // Add host
+    private var remoteListToolbar: some View {
+        let accent: Color = colorScheme == .dark ? Color(hex: "#6B9BE8") : Color.ihmsBrand
+        return HStack(spacing: 8) {
             Button { showAddHost = true } label: {
-                let addHostColor: Color = colorScheme == .dark ? Color(hex: "#6B9BE8") : Color.ihmsBrand
-                HStack(spacing: 8) {
+                HStack(spacing: 4) {
                     Image(systemName: "plus")
-                        .font(.system(size: 12, weight: .bold))
-                        .foregroundStyle(addHostColor)
-                    Text("Add Host")
-                        .font(.system(size: 12, weight: .semibold))
-                        .foregroundStyle(addHostColor)
-                    Spacer(minLength: 0)
+                        .font(.system(size: 11, weight: .bold))
+                    Text("Add")
+                        .font(.system(size: 11, weight: .semibold))
                 }
-                .padding(.horizontal, 10)
-                .padding(.vertical, 8)
+                .foregroundStyle(accent)
+                .frame(maxWidth: .infinity)
+                .frame(height: 26)
                 .background(
                     ZStack {
-                        RoundedRectangle(cornerRadius: 10, style: .continuous).fill(.ultraThinMaterial)
-                        RoundedRectangle(cornerRadius: 10, style: .continuous)
+                        RoundedRectangle(cornerRadius: 8, style: .continuous).fill(.ultraThinMaterial)
+                        RoundedRectangle(cornerRadius: 8, style: .continuous)
                             .stroke(
-                                colorScheme == .dark
-                                    ? Color.white.opacity(0.22)
-                                    : Color.ihmsBrand.opacity(0.38),
+                                colorScheme == .dark ? Color.white.opacity(0.22) : accent.opacity(0.38),
                                 lineWidth: 0.75
                             )
                     }
                 )
             }
             .buttonStyle(.plain)
+            .help("Add Host")
 
+            if remoteHostStore.hosts.count > 1 {
+                Button {
+                    withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
+                        isReorderMode.toggle()
+                        if !isReorderMode { hostRevealOffsets.removeAll() }
+                    }
+                } label: {
+                    HStack(spacing: 4) {
+                        Image(systemName: isReorderMode ? "checkmark" : "arrow.up.arrow.down")
+                            .font(.system(size: 10, weight: .bold))
+                        Text(isReorderMode ? "Done" : "Reorder")
+                            .font(.system(size: 11, weight: .semibold))
+                    }
+                    .foregroundStyle(isReorderMode ? .white : accent)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 26)
+                    .background(
+                        ZStack {
+                            if isReorderMode {
+                                RoundedRectangle(cornerRadius: 8, style: .continuous).fill(accent)
+                            } else {
+                                RoundedRectangle(cornerRadius: 8, style: .continuous).fill(.ultraThinMaterial)
+                                RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                    .stroke(
+                                        colorScheme == .dark ? Color.white.opacity(0.22) : accent.opacity(0.38),
+                                        lineWidth: 0.75
+                                    )
+                            }
+                        }
+                    )
+                }
+                .buttonStyle(.plain)
+                .help(isReorderMode ? "Done Reordering" : "Reorder Hosts")
+            }
+        }
+    }
+
+    // MARK: - Remote host list
+
+    private var remoteHostListView: some View {
+        VStack(alignment: .leading, spacing: 6) {
             if remoteHostStore.hosts.isEmpty {
                 VStack(spacing: 8) {
                     Image(systemName: "network.slash")
@@ -525,28 +598,63 @@ struct ContentView: View {
             } else {
                 ForEach(remoteHostStore.hosts) { host in
                     remoteHostRow(for: host)
+                        .onDrop(of: [.text], delegate: HostReorderDropDelegate(
+                            targetHost: host,
+                            store: remoteHostStore,
+                            draggedHostID: $draggedHostID
+                        ))
                 }
             }
         }
         .padding(.horizontal, 12)
-        .padding(.vertical, 8)
+        .padding(.top, 10)
+        .padding(.bottom, 8)
         .frame(maxWidth: .infinity, alignment: .leading)
     }
 
     @ViewBuilder
     private func remoteHostRow(for host: RemoteHost) -> some View {
         let isActive       = selectedHost?.id == host.id
-        let revealOffset   = hostRevealOffsets[host.id] ?? 0
+        let baseOffset     = hostRevealOffsets[host.id] ?? 0
         let actionWidth    = hostRowActionWidth
-        let isRevealed     = revealOffset < -actionWidth * 0.5
-        let revealProgress = min(1.0, abs(revealOffset) / actionWidth)
+        let leftWidth       = hostLeftActionWidth
+        // While global reorder mode is on, every row's handle is forced open
+        // regardless of its individual swipe state.
+        let revealOffset    = isReorderMode ? leftWidth : baseOffset
+        let isRevealed       = abs(baseOffset) > 4
+        let revealProgress   = isReorderMode ? 0 : min(1.0, max(0, -baseOffset) / actionWidth)
+        let leftRevealProgress = isReorderMode ? 1 : min(1.0, max(0, baseOffset) / leftWidth)
         let rowTint: Color = host.colorTag.color ?? (colorScheme == .dark ? Color(hex: "#6B9BE8") : Color.ihmsBrand)
         let connectState   = hostConnectStates[host.id] ?? .idle
         let isConnecting   = connectState == .connecting
         let failedMessage: String? = { if case .failed(let m) = connectState { return m } else { return nil } }()
 
         VStack(spacing: 4) {
-            ZStack(alignment: .trailing) {
+            ZStack {
+                // ── Leading reorder handle — revealed by swiping right or via
+                //    the "Reorder Host" context menu item ────────────────────
+                HStack(spacing: 0) {
+                    ZStack {
+                        Circle().fill(.ultraThinMaterial)
+                        Circle().fill(Color.primary.opacity(0.08))
+                        Circle().stroke(Color.primary.opacity(0.25), lineWidth: 0.75)
+                        Image(systemName: "line.3.horizontal")
+                            .font(.system(size: 11, weight: .semibold))
+                            .foregroundStyle(.secondary)
+                    }
+                    .frame(width: 30, height: 30)
+                    .contentShape(Circle())
+                    .help("Drag to reorder")
+                    .onDrag {
+                        draggedHostID = host.id
+                        return NSItemProvider(object: host.id.uuidString as NSString)
+                    }
+                    Spacer(minLength: 0)
+                }
+                .padding(.horizontal, 4)
+                .opacity(leftRevealProgress)
+                .frame(maxWidth: .infinity, alignment: .leading)
+
                 // ── Liquid-glass action bubbles ──────────────────────────────────
                 HStack(spacing: 4) {
                     // Edit — slate-blue glass circle
@@ -590,9 +698,11 @@ struct ContentView: View {
                 }
                 .padding(.horizontal, 4)
                 .opacity(revealProgress)
+                .frame(maxWidth: .infinity, alignment: .trailing)
 
                 // ── Host row — slides left continuously to reveal actions ─────────
                 Button {
+                    guard !isReorderMode else { return }
                     if isRevealed { snap(host: host, to: 0) }
                     else if !isConnecting { connectToHost(host) }
                 } label: {
@@ -688,7 +798,10 @@ struct ContentView: View {
             }
         }
         .animation(.spring(response: 0.3, dampingFraction: 0.75), value: failedMessage != nil)
-        // Click-drag (mouse): smooth tracking from gesture start position
+        // Click-drag (mouse): smooth tracking from gesture start position.
+        // Locked to whichever side the gesture first moves toward, so a
+        // single continuous drag can't glide past centre into the other
+        // side's reveal — it has to stop, release, and swipe again.
         .gesture(
             DragGesture(minimumDistance: 5, coordinateSpace: .local)
                 .onChanged { value in
@@ -699,24 +812,56 @@ struct ContentView: View {
                         dragBaseOffsets[host.id] = hostRevealOffsets[host.id] ?? 0
                     }
                     let base = dragBaseOffsets[host.id] ?? 0
-                    hostRevealOffsets[host.id] = max(-actionWidth, min(0, base + dx))
+                    var lock = dragLockDirection[host.id]
+                    if lock == nil {
+                        if base > 0.5 { lock = 1 }
+                        else if base < -0.5 { lock = -1 }
+                        else if abs(dx) > 2 {
+                            lock = dx > 0 ? 1 : -1
+                            dragLockDirection[host.id] = lock
+                        }
+                    }
+                    let proposed = base + dx
+                    hostRevealOffsets[host.id] = lock == 1
+                        ? max(0, min(leftWidth, proposed))
+                        : (lock == -1 ? max(-actionWidth, min(0, proposed)) : base)
                 }
                 .onEnded { _ in
-                    dragBaseOffsets[host.id] = nil
+                    dragBaseOffsets[host.id]   = nil
+                    dragLockDirection[host.id] = nil
                     settleSnap(host: host)
-                }
+                },
+            isEnabled: !isReorderMode
         )
-        // Trackpad two-finger swipe + mouse scroll wheel (NSEvent monitor)
+        // Trackpad two-finger swipe + mouse scroll wheel (NSEvent monitor).
+        // Same direction lock as the click-drag gesture above.
         .detectHorizontalSwipe(
             invertMouseDirection: scrollWheelInverted,
             onDelta: { delta in
+                guard !isReorderMode else { return }
                 let current = hostRevealOffsets[host.id] ?? 0
-                hostRevealOffsets[host.id] = max(-actionWidth, min(0, current + delta))
+                var lock = dragLockDirection[host.id]
+                if lock == nil {
+                    if current > 0.5 { lock = 1 }
+                    else if current < -0.5 { lock = -1 }
+                    else if abs(delta) > 0.5 {
+                        lock = delta > 0 ? 1 : -1
+                        dragLockDirection[host.id] = lock
+                    }
+                }
+                let proposed = current + delta
+                hostRevealOffsets[host.id] = lock == 1
+                    ? max(0, min(leftWidth, proposed))
+                    : (lock == -1 ? max(-actionWidth, min(0, proposed)) : current)
             },
-            onSettle: { settleSnap(host: host) }
+            onSettle: {
+                dragLockDirection[host.id] = nil
+                settleSnap(host: host)
+            }
         )
         .contextMenu {
             Button("Edit Host") { editingHost = host }
+            Button("Reorder Host") { snap(host: host, to: hostLeftActionWidth) }
             Divider()
             Button("Delete Host", role: .destructive) {
                 if selectedHost?.id == host.id { disconnectRemote() }
@@ -734,7 +879,19 @@ struct ContentView: View {
 
     private func settleSnap(host: RemoteHost) {
         let current = hostRevealOffsets[host.id] ?? 0
-        snap(host: host, to: current < -hostRowActionWidth / 2 ? -hostRowActionWidth : 0)
+        // Require crossing well past the midpoint (not just past it) before
+        // committing to fully open — live tracking stays just as responsive,
+        // this only raises the bar for the final release decision.
+        let commitFraction: CGFloat = 0.65
+        let target: CGFloat
+        if current < -hostRowActionWidth * commitFraction {
+            target = -hostRowActionWidth
+        } else if current > hostLeftActionWidth * commitFraction {
+            target = hostLeftActionWidth
+        } else {
+            target = 0
+        }
+        snap(host: host, to: target)
     }
 
     // MARK: - Category row (shared by local + remote)
@@ -849,4 +1006,33 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+}
+
+// MARK: - Remote host reorder drop delegate
+
+/// Live-reorders `store.hosts` as a dragged reorder handle passes over other
+/// rows, mirroring List's built-in `.onMove` drag feel for our custom rows.
+private struct HostReorderDropDelegate: DropDelegate {
+    let targetHost: RemoteHost
+    let store: RemoteHostStore
+    @Binding var draggedHostID: UUID?
+
+    func dropEntered(info: DropInfo) {
+        guard let draggedID = draggedHostID, draggedID != targetHost.id,
+              let fromIndex = store.hosts.firstIndex(where: { $0.id == draggedID }),
+              let toIndex   = store.hosts.firstIndex(where: { $0.id == targetHost.id })
+        else { return }
+        withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
+            store.move(fromIndex: fromIndex, toIndex: toIndex)
+        }
+    }
+
+    func dropUpdated(info: DropInfo) -> DropProposal? {
+        DropProposal(operation: .move)
+    }
+
+    func performDrop(info: DropInfo) -> Bool {
+        draggedHostID = nil
+        return true
+    }
 }

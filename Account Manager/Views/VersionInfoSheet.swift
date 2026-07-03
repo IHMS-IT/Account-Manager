@@ -147,7 +147,9 @@ struct VersionInfoSheet: View {
                     Menu {
                         ForEach(allVersions, id: \.self) { v in
                             Button {
-                                selectedNoteVersion = v
+                                withAnimation(.easeInOut(duration: 0.22)) {
+                                    selectedNoteVersion = v
+                                }
                             } label: {
                                 if v == displayedVersion {
                                     Label(v, systemImage: "checkmark")
@@ -190,6 +192,8 @@ struct VersionInfoSheet: View {
                     }
                     .padding(.horizontal, 14)
                     .padding(.vertical, 16)
+                    .id(displayedVersion)
+                    .transition(.opacity.combined(with: .scale(scale: 0.98, anchor: .top)))
                 }
                 .frame(height: 220)
                 // Soft fade at the top and bottom edges so scrolling text eases out
@@ -250,10 +254,6 @@ struct VersionInfoSheet: View {
         .padding(24)
         .frame(minWidth: 320, minHeight: 360)
         .onAppear { coordinator?.reset() }
-        .onChange(of: phase) { _, newPhase in
-            // A silent probe found a real update — now show Sparkle's install UI.
-            if newPhase == .updateAvailable { updater?.checkForUpdates() }
-        }
     }
 
     /// Button tint for the current phase.
@@ -268,10 +268,13 @@ struct VersionInfoSheet: View {
 
     private func startCheck() {
         coordinator?.beginCheck()
-        // Silent probe — no Sparkle modal. Results arrive via the coordinator's
-        // delegate callbacks, so the button reflects the outcome immediately
-        // without the user having to dismiss a dialog. If a real update is found,
-        // we bring up Sparkle's install UI (handled in .onChange below).
-        updater?.checkForUpdateInformation()
+        // Trigger Sparkle's real update check directly — the same call the
+        // menu-bar "Check for Updates…" command uses. Chaining a silent probe
+        // into a follow-up checkForUpdates() call raced against Sparkle's
+        // internal session state and could silently no-op, so we call it
+        // straight away. The coordinator's delegate callbacks still update
+        // `phase` (for the button label/colour) whether or not Sparkle's own
+        // dialog is shown.
+        updater?.checkForUpdates()
     }
 }

@@ -1,4 +1,14 @@
 {
+  "1.0.2": [
+    "Fixed \"Check for Updates\" sometimes doing nothing after finding a new version",
+    "Replaced Sparkle's update dialog with a native prompt that shows the new version and its changelog before installing",
+    "Added default admin credentials in Settings — save a shared local and/or remote admin username to auto-fill deletion, password reset, and Add Remote Host forms (the password is never saved and must always be entered by hand)",
+    "Added drag-to-reorder for remote hosts — swipe a host right, right-click it and choose \"Reorder Host\", or use the new Reorder button above the list to drag any host to a new position",
+    "Release notes now animate smoothly when switching between versions in the Version Info window",
+    "Fixed remote host swipes sometimes sliding straight through to the wrong side's buttons, and made the swipe commit distance a bit more deliberate",
+    "The remote host setup wizard now saves the host to the sidebar the moment setup succeeds, instead of waiting on a separate confirmation step — closing the window afterward can no longer lose it",
+    "Added a soft scroll fade to the remote host list, matching release notes"
+  ],
   "1.0.1": [
     "Fixed the auto-update feed — a stray double-hyphen in the appcast made \"Check for Updates\" fail with a parsing error for every user",
     "Add Remote Host now opens the setup wizard directly instead of an extra manual-entry screen; the wizard also lets you pick the sidebar icon and colour",

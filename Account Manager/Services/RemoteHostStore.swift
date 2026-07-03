@@ -31,6 +31,17 @@ final class RemoteHostStore {
         save()
     }
 
+    /// Moves the host at `sourceIndex` to `destinationIndex`, reordering the
+    /// sidebar list (which always displays hosts in array order).
+    func move(fromIndex sourceIndex: Int, toIndex destinationIndex: Int) {
+        guard hosts.indices.contains(sourceIndex) else { return }
+        let clampedDestination = max(0, min(destinationIndex, hosts.count - 1))
+        guard clampedDestination != sourceIndex else { return }
+        let host = hosts.remove(at: sourceIndex)
+        hosts.insert(host, at: clampedDestination)
+        save()
+    }
+
     private func save() {
         guard let data = try? JSONEncoder().encode(hosts) else { return }
         UserDefaults.standard.set(data, forKey: "savedRemoteHosts")

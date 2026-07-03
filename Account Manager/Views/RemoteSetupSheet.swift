@@ -20,7 +20,11 @@ struct RemoteSetupSheet: View {
 
     @State private var label      = ""
     @State private var hostname   = ""
-    @State private var username   = "admin"
+    // Pre-filled from Settings → Default Admin Credentials, if set.
+    @State private var username   = {
+        let saved = UserDefaults.standard.string(forKey: "defaultRemoteAdminUsername") ?? ""
+        return saved.isEmpty ? "admin" : saved
+    }()
     @State private var password   = ""
     @State private var port       = "22"
     @State private var deviceType: DeviceType   = .desktop
@@ -274,10 +278,12 @@ struct RemoteSetupSheet: View {
                 VStack(alignment: .leading, spacing: 2) {
                     Text("Remote Mac ready!")
                         .font(.title3.bold())
-                    Text("Key-based SSH and passwordless sudo are configured.")
+                    Text("Key-based SSH and passwordless sudo are configured.\n\(label) has been added to the sidebar.")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
             }
 
             VStack(alignment: .leading, spacing: 6) {
@@ -292,6 +298,7 @@ struct RemoteSetupSheet: View {
                     }
                 }
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
             .padding(12)
             .background(RoundedRectangle(cornerRadius: 10).fill(.ultraThinMaterial))
             .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.white.opacity(0.20), lineWidth: 0.5))
@@ -301,12 +308,12 @@ struct RemoteSetupSheet: View {
             HStack {
                 Spacer()
                 GlassActionButton(
-                    title: "Add Host to Sidebar",
+                    title: "Done",
                     baseColor: Color.ihmsBrand, foreground: .white,
                     font: .system(size: 13, weight: .semibold),
                     horizontalPadding: 20, verticalPadding: 8,
                     cornerRadius: 12, disabled: false
-                ) { saveAndDismiss() }
+                ) { dismiss() }
                 Spacer()
             }
         }
@@ -438,6 +445,11 @@ struct RemoteSetupSheet: View {
                 await MainActor.run {
                     if let last = log.indices.last { log[last].done = true }
                     phase = .success
+                    // Save immediately once setup succeeds — don't leave the
+                    // host un-added behind a manual confirmation step. If the
+                    // app quits or updates right after this point, the host
+                    // is already in the sidebar rather than lost.
+                    saveHost()
                 }
 
             } catch {
@@ -459,7 +471,9 @@ struct RemoteSetupSheet: View {
         log.append(LogEntry(text: text, done: false))
     }
 
-    private func saveAndDismiss() {
+    /// Builds the configured host and hands it to `onSave` — called
+    /// automatically the moment setup succeeds (see beginSetup above).
+    private func saveHost() {
         guard let portInt = Int(port) else { return }
         let host = RemoteHost(
             label:      label.trimmingCharacters(in: .whitespaces),
@@ -471,7 +485,6 @@ struct RemoteSetupSheet: View {
             colorTag:   colorTag
         )
         onSave(host)
-        dismiss()
     }
 }
 

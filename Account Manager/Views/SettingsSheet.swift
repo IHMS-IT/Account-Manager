@@ -15,6 +15,10 @@ struct SettingsSheet: View {
     // MARK: - Deletion defaults
     @AppStorage("defaultDeletionMode")  private var defaultDeletionMode: String  = DeletionMode.accountAndFiles.rawValue
 
+    // MARK: - Default admin credentials (auto-fill only — passwords are never stored)
+    @AppStorage("defaultLocalAdminUsername")  private var defaultLocalAdminUsername:  String = ""
+    @AppStorage("defaultRemoteAdminUsername") private var defaultRemoteAdminUsername: String = ""
+
     // MARK: - Protected policy overrides (runtime — advanced)
     @State private var minUID: String = "\(UserDefaults.standard.integer(forKey: "minProtectedUID") > 0 ? UserDefaults.standard.integer(forKey: "minProtectedUID") : 500)"
     @State private var staffTagsText:  String = UserDefaults.standard.string(forKey: "staffTagsDisplay")  ?? "_staff"
@@ -85,6 +89,33 @@ struct SettingsSheet: View {
                     .pickerStyle(.menu)
                     .labelsHidden()
                     .fixedSize()
+                }
+
+                Divider().padding(.vertical, 14)
+
+                // ── Default Admin Credentials ───────────────────────────
+                sectionHeader("Default Admin Credentials")
+
+                Text("If your fleet shares the same admin account, save its username here to auto-fill it. The password is never saved and must always be entered by hand.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .padding(.bottom, 6)
+
+                labeledRow(title: "Local admin username",
+                           hint: "Auto-fills the Administrator field for local deletions and password resets.") {
+                    TextField("e.g. ihmsadmin", text: $defaultLocalAdminUsername)
+                        .textFieldStyle(.roundedBorder)
+                        .autocorrectionDisabled()
+                        .frame(width: 200)
+                }
+
+                labeledRow(title: "Remote admin username",
+                           hint: "Auto-fills the SSH/Administrator field when adding a remote host and for remote deletions and password resets.") {
+                    TextField("e.g. ihmsadmin", text: $defaultRemoteAdminUsername)
+                        .textFieldStyle(.roundedBorder)
+                        .autocorrectionDisabled()
+                        .frame(width: 200)
                 }
 
                 Divider().padding(.vertical, 14)

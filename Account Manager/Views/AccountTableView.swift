@@ -713,6 +713,20 @@ struct ActionConfirmSheet: View {
 
     private let previewColor = Color(hex: "#E88C2A")
 
+    init(toReset: [UserAccount], toDelete: [UserAccount], isDryRun: Bool, isRemote: Bool = false,
+         onConfirm: @escaping (String?, String, String) -> Void, onCancel: @escaping () -> Void) {
+        self.toReset   = toReset
+        self.toDelete  = toDelete
+        self.isDryRun  = isDryRun
+        self.isRemote  = isRemote
+        self.onConfirm = onConfirm
+        self.onCancel  = onCancel
+        // Auto-fill the admin username from Settings — the password always
+        // starts blank and must be entered by hand every time.
+        let key = isRemote ? "defaultRemoteAdminUsername" : "defaultLocalAdminUsername"
+        _adminUser = State(initialValue: UserDefaults.standard.string(forKey: key) ?? "")
+    }
+
     private var passwordMismatch: Bool {
         !confirmPassword.isEmpty && confirmPassword != newPassword
     }

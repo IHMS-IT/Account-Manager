@@ -19,25 +19,33 @@ struct AccountManagerApp: App {
 
     @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
 
-    // Sparkle updater — kept alive for the full app lifetime.
-    private let updaterController: SPUStandardUpdaterController
+    // Sparkle updater — kept alive for the full app lifetime. Built directly
+    // (instead of SPUStandardUpdaterController) so we can supply our own
+    // HybridUserDriver, which shows a native prompt for "update found" and
+    // forwards everything else to Sparkle's standard driver.
+    private let updater: SPUUpdater
+    private let userDriver: HybridUserDriver
     // Captures the real result of an update check (the updater holds it weakly,
     // so we keep a strong reference here).
     private let updaterCoordinator = UpdaterCoordinator()
 
     init() {
         let coordinator = updaterCoordinator
-        updaterController = SPUStandardUpdaterController(
-            startingUpdater: true,
-            updaterDelegate: coordinator,
-            userDriverDelegate: nil
+        let driver = HybridUserDriver(hostBundle: Bundle.main)
+        userDriver = driver
+        updater = SPUUpdater(
+            hostBundle: Bundle.main,
+            applicationBundle: Bundle.main,
+            userDriver: driver,
+            delegate: coordinator
         )
+        try? updater.start()
     }
 
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environment(\.sparkleUpdater, updaterController.updater)
+                .environment(\.sparkleUpdater, updater)
                 .environment(\.updaterCoordinator, updaterCoordinator)
         }
         .commands {
@@ -54,7 +62,7 @@ struct AccountManagerApp: App {
                 }
 
                 Button("Check for Updates…") {
-                    updaterController.updater.checkForUpdates()
+                    updater.checkForUpdates()
                 }
             }
         }
