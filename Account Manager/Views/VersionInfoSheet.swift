@@ -24,8 +24,25 @@ struct ReleaseNotesProvider {
         if let notes = dict[version] { return notes }
         let trimmed = version.trimmingCharacters(in: .whitespacesAndNewlines)
         if let notes = dict[trimmed] { return notes }
-        if let latestKey = dict.keys.sorted().last, let notes = dict[latestKey] { return notes }
+        if let latestKey = allVersionsNewestFirst().first, let notes = dict[latestKey] { return notes }
         return []
+    }
+
+    /// All version keys from ReleaseNotes.json, newest first (proper numeric
+    /// dot-version compare, not lexicographic — so "1.0.10" sorts after "1.0.9").
+    static func allVersionsNewestFirst() -> [String] {
+        loadAll().keys.sorted { compareVersions($0, $1) == .orderedDescending }
+    }
+
+    private static func compareVersions(_ a: String, _ b: String) -> ComparisonResult {
+        let aParts = a.split(separator: ".").compactMap { Int($0) }
+        let bParts = b.split(separator: ".").compactMap { Int($0) }
+        for i in 0..<max(aParts.count, bParts.count) {
+            let x = i < aParts.count ? aParts[i] : 0
+            let y = i < bParts.count ? bParts[i] : 0
+            if x != y { return x < y ? .orderedAscending : .orderedDescending }
+        }
+        return .orderedSame
     }
 }
 
@@ -87,7 +104,13 @@ struct VersionInfoSheet: View {
         }
     }
 
-    private var notes: [String] { ReleaseNotesProvider.notes(for: appVersion) }
+    /// Which version's notes are currently shown. Starts on the installed
+    /// version; the picker below lets the user browse older entries.
+    @State private var selectedNoteVersion: String?
+
+    private var displayedVersion: String { selectedNoteVersion ?? appVersion }
+    private var notes: [String] { ReleaseNotesProvider.notes(for: displayedVersion) }
+    private var allVersions: [String] { ReleaseNotesProvider.allVersionsNewestFirst() }
 
     /// The app's icon. Reads the named asset from the catalog first (deterministic,
     /// independent of the macOS icon-services cache), falling back to the running
@@ -115,6 +138,36 @@ struct VersionInfoSheet: View {
             }
 
             Divider()
+
+            if allVersions.count > 1 {
+                HStack(spacing: 4) {
+                    Text("Release notes for")
+                        .font(.system(size: 11))
+                        .foregroundStyle(.secondary)
+                    Menu {
+                        ForEach(allVersions, id: \.self) { v in
+                            Button {
+                                selectedNoteVersion = v
+                            } label: {
+                                if v == displayedVersion {
+                                    Label(v, systemImage: "checkmark")
+                                } else {
+                                    Text(v)
+                                }
+                            }
+                        }
+                    } label: {
+                        Text(displayedVersion)
+                            .font(.system(size: 12, weight: .bold))
+                            .foregroundStyle(Color.brandAdaptive)
+                    }
+                    .menuStyle(.borderlessButton)
+                    .tint(Color.brandAdaptive)
+                    .fixedSize()
+                    Spacer()
+                }
+                .padding(.top, 2)
+            }
 
             if notes.isEmpty {
                 Text("No release notes available for this version.")
@@ -145,8 +198,8 @@ struct VersionInfoSheet: View {
                     LinearGradient(
                         stops: [
                             .init(color: .clear, location: 0.0),
-                            .init(color: .black, location: 0.13),
-                            .init(color: .black, location: 0.87),
+                            .init(color: .black, location: 0.045),
+                            .init(color: .black, location: 0.955),
                             .init(color: .clear, location: 1.0)
                         ],
                         startPoint: .top,

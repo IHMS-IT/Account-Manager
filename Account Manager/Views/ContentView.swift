@@ -122,7 +122,7 @@ struct ContentView: View {
             )
         }
         .sheet(isPresented: $showAddHost) {
-            AddRemoteHostSheet { host in
+            RemoteSetupSheet { host in
                 remoteHostStore.add(host)
             }
         }
@@ -466,11 +466,11 @@ struct ContentView: View {
             .contentShape(Rectangle())
             .background(
                 RoundedRectangle(cornerRadius: 12, style: .continuous)
-                    .fill(tint.opacity(colorScheme == .dark ? 0.28 : 0.12))
+                    .fill(tint.opacity(colorScheme == .dark ? 0.18 : 0.08))
             )
             .overlay(
                 RoundedRectangle(cornerRadius: 12, style: .continuous)
-                    .stroke(tint.opacity(colorScheme == .dark ? 0.65 : 0.45), lineWidth: 0.75)
+                    .stroke(tint.opacity(colorScheme == .dark ? 0.45 : 0.30), lineWidth: 0.75)
             )
         }
         .buttonStyle(.plain)
@@ -631,14 +631,14 @@ struct ContentView: View {
                         ZStack {
                             if isActive {
                                 RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                    .fill(rowTint.opacity(0.90))
+                                    .fill(rowTint.opacity(0.65))
                                 RoundedRectangle(cornerRadius: 10, style: .continuous)
                                     .stroke(Color.white.opacity(0.25), lineWidth: 0.5)
                             } else if host.colorTag != .none {
                                 RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                    .fill(rowTint.opacity(colorScheme == .dark ? 0.28 : 0.16))
+                                    .fill(rowTint.opacity(colorScheme == .dark ? 0.18 : 0.10))
                                 RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                    .stroke(rowTint.opacity(0.55), lineWidth: 0.5)
+                                    .stroke(rowTint.opacity(0.38), lineWidth: 0.5)
                             } else {
                                 RoundedRectangle(cornerRadius: 10, style: .continuous).fill(.ultraThinMaterial)
                                 RoundedRectangle(cornerRadius: 10, style: .continuous)

@@ -18,12 +18,14 @@ struct RemoteSetupSheet: View {
 
     // MARK: - State
 
-    @State private var label     = ""
-    @State private var hostname  = ""
-    @State private var username  = "admin"
-    @State private var password  = ""
-    @State private var port      = "22"
-    @State private var phase     = Phase.form
+    @State private var label      = ""
+    @State private var hostname   = ""
+    @State private var username   = "admin"
+    @State private var password   = ""
+    @State private var port       = "22"
+    @State private var deviceType: DeviceType   = .desktop
+    @State private var colorTag:   HostColorTag = .none
+    @State private var phase      = Phase.form
 
     @State private var log: [LogEntry] = []
 
@@ -59,7 +61,7 @@ struct RemoteSetupSheet: View {
             HStack(spacing: 10) {
                 Image(systemName: "wand.and.sparkles")
                     .font(.title2)
-                    .foregroundStyle(Color.ihmsBrand)
+                    .foregroundStyle(Color.brandAdaptive)
                 VStack(alignment: .leading, spacing: 1) {
                     Text("Remote Mac Setup")
                         .font(.title2.bold())
@@ -132,6 +134,70 @@ struct RemoteSetupSheet: View {
                 SecureField("Password", text: $password)
                     .textFieldStyle(.roundedBorder)
             }
+
+            Divider().padding(.vertical, 14)
+
+            // Device type
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Device Type").font(.subheadline.weight(.semibold))
+                Text("Shown as an icon in the sidebar").font(.caption).foregroundStyle(.secondary)
+                HStack(spacing: 10) {
+                    ForEach(DeviceType.allCases, id: \.self) { type in
+                        let selected = deviceType == type
+                        Button { deviceType = type } label: {
+                            VStack(spacing: 4) {
+                                Image(systemName: type.systemImage)
+                                    .font(.system(size: 18))
+                                Text(type.label)
+                                    .font(.caption2)
+                            }
+                            .foregroundStyle(selected ? Color.white : .primary)
+                            .frame(width: 72, height: 48)
+                            .background(
+                                RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                    .fill(selected ? Color.brandAdaptive : Color.primary.opacity(0.07))
+                            )
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                    .stroke(selected ? Color.brandAdaptive : Color.primary.opacity(0.15), lineWidth: 0.75)
+                            )
+                        }
+                        .buttonStyle(.plain)
+                    }
+                }
+            }
+            .padding(.vertical, 7)
+
+            // Sidebar colour tag
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Sidebar Colour").font(.subheadline.weight(.semibold))
+                Text("Tints the host row for quick identification").font(.caption).foregroundStyle(.secondary)
+                HStack(spacing: 8) {
+                    ForEach(HostColorTag.allCases, id: \.self) { tag in
+                        let selected = colorTag == tag
+                        Button { colorTag = tag } label: {
+                            ZStack {
+                                Circle()
+                                    .fill(tag.color ?? Color.primary.opacity(0.12))
+                                    .frame(width: 22, height: 22)
+                                if tag == .none {
+                                    Image(systemName: "slash.circle")
+                                        .font(.system(size: 14))
+                                        .foregroundStyle(.secondary)
+                                }
+                                if selected {
+                                    Circle()
+                                        .stroke(Color.primary.opacity(0.6), lineWidth: 2)
+                                        .frame(width: 26, height: 26)
+                                }
+                            }
+                        }
+                        .buttonStyle(.plain)
+                        .help(tag.label)
+                    }
+                }
+            }
+            .padding(.vertical, 7)
 
             Divider().padding(.vertical, 14)
 
@@ -400,7 +466,9 @@ struct RemoteSetupSheet: View {
             hostname:   hostname.trimmingCharacters(in: .whitespaces),
             sshUser:    username.trimmingCharacters(in: .whitespaces),
             sshKeyPath: SSHBootstrapper.accountManagerKeyPath,
-            port:       portInt
+            port:       portInt,
+            deviceType: deviceType,
+            colorTag:   colorTag
         )
         onSave(host)
         dismiss()

@@ -1,4 +1,12 @@
 {
+  "1.0.1": [
+    "Fixed the auto-update feed — a stray double-hyphen in the appcast made \"Check for Updates\" fail with a parsing error for every user",
+    "Add Remote Host now opens the setup wizard directly instead of an extra manual-entry screen; the wizard also lets you pick the sidebar icon and colour",
+    "Fixed several icons that were too dark to read in dark mode",
+    "Added a version picker to the Version Info window so you can browse release notes from previous versions",
+    "Softened the scroll fade on release notes so it no longer overlaps the first line",
+    "Toned down the colour tint on remote host rows in the sidebar for a lighter look"
+  ],
   "1.0.0": [
     "Native macOS rewrite — replaces the cross-platform Avalonia / clearusers.py tool with a purpose-built Swift app",
     "Account categories — sidebar organises accounts into Students, K-3 Shared, Staff, Office, Admin, and System/Protected for targeted bulk actions",

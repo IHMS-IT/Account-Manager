@@ -20,7 +20,6 @@ struct AddRemoteHostSheet: View {
     @State private var deviceType: DeviceType  = .desktop
     @State private var colorTag:   HostColorTag = .none
     @State private var testPhase  = TestPhase.idle
-    @State private var showSetup  = false
 
     init(existing: RemoteHost? = nil, onSave: @escaping (RemoteHost) -> Void) {
         self.existing = existing
@@ -66,20 +65,6 @@ struct AddRemoteHostSheet: View {
             // ── Scrollable form body ──────────────────────────────────────────
             ScrollView(.vertical, showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 0) {
-
-                    // Setup wizard callout
-                    setupCallout
-                        .padding(.horizontal, 24)
-                        .padding(.top, 14)
-
-                    Divider().padding(.vertical, 14).padding(.horizontal, 24)
-
-                    // Manual entry fields
-                    Text("Or fill in manually if SSH key access is already configured:")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                        .padding(.horizontal, 24)
-                        .padding(.bottom, 4)
 
                     Group {
                         fieldRow("Label", hint: "Friendly name shown in the sidebar") {
@@ -132,11 +117,11 @@ struct AddRemoteHostSheet: View {
                                         .frame(width: 72, height: 48)
                                         .background(
                                             RoundedRectangle(cornerRadius: 8, style: .continuous)
-                                                .fill(selected ? Color.ihmsBrand : Color.primary.opacity(0.07))
+                                                .fill(selected ? Color.brandAdaptive : Color.primary.opacity(0.07))
                                         )
                                         .overlay(
                                             RoundedRectangle(cornerRadius: 8, style: .continuous)
-                                                .stroke(selected ? Color.ihmsBrand : Color.primary.opacity(0.15), lineWidth: 0.75)
+                                                .stroke(selected ? Color.brandAdaptive : Color.primary.opacity(0.15), lineWidth: 0.75)
                                         )
                                     }
                                     .buttonStyle(.plain)
@@ -226,53 +211,6 @@ struct AddRemoteHostSheet: View {
             .padding(.vertical, 16)
         }
         .frame(minWidth: 460, minHeight: 480)
-        .sheet(isPresented: $showSetup) {
-            RemoteSetupSheet { host in
-                // Auto-fill fields from what setup configured, then auto-save
-                onSave(host)
-                dismiss()
-            }
-        }
-    }
-
-    // MARK: - Setup callout
-
-    private var setupCallout: some View {
-        let accent: Color = colorScheme == .dark ? Color(hex: "#6B9BE8") : Color.ihmsBrand
-        return HStack(spacing: 12) {
-            Image(systemName: "wand.and.sparkles")
-                .font(.system(size: 20))
-                .foregroundStyle(accent)
-                .frame(width: 28)
-
-            VStack(alignment: .leading, spacing: 3) {
-                Text("First time? Use the setup wizard")
-                    .font(.system(size: 13, weight: .semibold))
-                Text("Configures SSH key auth and sudo on the remote Mac — just enter the admin password once.")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-                    .fixedSize(horizontal: false, vertical: true)
-            }
-
-            Spacer(minLength: 0)
-
-            GlassActionButton(
-                title: "Set Up...",
-                baseColor: accent, foreground: .white,
-                font: .system(size: 12, weight: .semibold),
-                horizontalPadding: 12, verticalPadding: 6,
-                cornerRadius: 10, disabled: false
-            ) { showSetup = true }
-        }
-        .padding(12)
-        .background(
-            RoundedRectangle(cornerRadius: 12, style: .continuous)
-                .fill(accent.opacity(0.07))
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: 12, style: .continuous)
-                .stroke(accent.opacity(colorScheme == .dark ? 0.40 : 0.25), lineWidth: 0.75)
-        )
     }
 
     // MARK: - Test status label
