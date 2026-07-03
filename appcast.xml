@@ -6,21 +6,7 @@
         <description>Account Manager update feed</description>
         <language>en</language>
 
-        <!--
-            HOW TO ADD A RELEASE
-            ════════════════════
-            1. Archive and export a signed .app in Xcode (Product → Archive)
-            2. Zip it:
-                   ditto -c -k --keepParent "Account Manager.app" "AccountManager-1.0.0.zip"
-            3. Sign it with Sparkle (private key is in your Keychain):
-                   /path/to/sign_update AccountManager-1.0.0.zip
-               This prints the sparkle:edSignature and length values.
-            4. Upload the zip to GitHub Releases.
-            5. Copy the <item> block below, fill in the values, and commit this file.
-
-            The sign_update binary is at:
-            ~/Library/Developer/Xcode/DerivedData/Account_Manager-*/SourcePackages/artifacts/sparkle/Sparkle/bin/sign_update
-        -->
+        <!-- See SETUP.md "Publishing an update (Sparkle)" for how to add a release entry. -->
 
         <item>
             <title>Version 1.0.0</title>
